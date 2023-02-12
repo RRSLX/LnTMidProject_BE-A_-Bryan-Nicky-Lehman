@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Style for the menu buttons */
+      .menu-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .menu-button {
+        width: 150px;
+        height: 40px;
+        margin: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+      }
+      /* Style for the create container */
+      .create-container {
+        display: none;
+        width: 400px;
+        height: 400px;
+        margin-top: 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 20px;
+      }
+      /* Style for the form inputs */
+      .create-container input[type="text"],
+      .create-container input[type="number"] {
+        width: 100%;
+        height: 30px;
+        margin-top: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+      }
+      /* Style for the view container */
+      .view-container {
+        display: none;
+        width: 400px;
+        height: 400px;
+        margin-top: 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 20px;
+        overflow-y: scroll;
+      }
+      /* Style for the add container */
+      .add-container {
+        display: none;
+        width: 400px;
+        height: 400px;
+        margin-top: 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 20px;
+      }
+      /* Style for the error message */
+      .error {
+        color: red;
+        margin-top: 10px;
+      }
+    </style>
+     <script type="text/javascript" src="script.js"></script>
+     <script>
+          // Global variables to store the employee data
+          let employees = [];
+
+          // Function to show the selected container
+        function showContainer(containerName) {
+        // Hide all the containers
+        let containers = document.querySelectorAll(".container");
+        for (let i = 0; i < containers.length; i++) {
+          containers[i].style.display = "none";
+        }
+
+        // Show the selected container
+        let selectedContainer = document.querySelector("." + containerName + "-container");
+        selectedContainer.style.display = "block";
+
+        // If the selected container is "view", show the employee data
+        if (containerName === "view") {
+          showEmployeeData();
+        }
+      }
+
+      // Function to show the employee data in the "view" container
+      function showEmployeeData() {
+        let employeeDataContainer = document.querySelector("#employee-data");
+        employeeDataContainer.innerHTML = "";
+
+        for (let i = 0; i < employees.length; i++) {
+          let employee = employees[i];
+          let employeeData = "<td>" + employee.name + "</td><td>" + employee.age + "</td><td>" + employee.alamat + "</td><td>" + employee.nomor + "</td>";
+          employeeDataContainer.innerHTML += "<tr>" + employeeData + "</tr>";
+        }
+      }
+
+      // Function to handle the "create" form submit event
+      let createForm = document.querySelector("#create-form");
+      createForm.onsubmit = function(event) {
+        event.preventDefault();
+
+        let name = document.querySelector("#name").value;
+        let age = document.querySelector("#age").value;
+        let alamat = document.querySelector("#alamat_karyawan").value;
+        let nomor = document.querySelector("#nomor_telp_karyawan").value;
+
+        let employee = {
+          name: name,
+          age: age,
+          alamat: alamat,
+          nomor: nomor
+        };
+
+        employees.push(employee);
+
+        createForm.reset();
+
+        showContainer("view");
+      };
+
+      // Function to handle the "add" form submit event
+      let addForm = document.querySelector("#add-form");
+      addForm.onsubmit = function(event) {
+        event.preventDefault();
+
+        let name = document.querySelector("#add_name").value;
+        let age = document.querySelector("#add_age").value;
+        let alamat = document.querySelector("#add_alamat_karyawan").value;
+        let nomor = document.querySelector("#add_nomor_telp_karyawan").value;
+
+        let employee = {
+          name: name,
+          age: age,
+          alamat: alamat,
+          nomor: nomor
+        };
+
+        employees.push(employee);
+
+        addForm.reset();
+
+        showContainer("view");
+      }
+     </script>
+  </head> 
+ 
+  <body>
+    <!-- Menu buttons -->
+    <div class="menu-buttons">
+      <div class="menu-button" onclick="showContainer('create')">Create</div>
+      <div class="menu-button" onclick="showContainer('view')">View</div>
+      <div class="menu-button" onclick="showContainer('add')">Add</div>
+      <div class="menu-button" onclick="showContainer('remove')">Remove</div>
+    </div>
+
+    <!-- Create container -->
+    <div class="create-container">
+      <form id="create-form">
+        <!-- Name input -->
+        <label>Nama Karyawan:</label>
+        <input type="text" id="nama" minlength="5" maxlength="20" required>
+        <!-- Age input -->
+        <label>Umur Karyawan:</label>
+        <input type="number" id="umur" min="20" required>
+        <!-- Address input -->
+        <label for="add_alamat">Alamat karyawan:</label>
+        <input type="text" id="alamat" name="alamat" minlength="10" maxlength="40" required>
+
+        <label for="nomor_telp_karyawan">Nomor telp. karyawan:</label>
+        <input type="text" id="nomor_telp_karyawan" name="nomor_telp_karyawan" pattern="08[0-9]{8,9}" required>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<div class="view-container" style="display: none;">
+  <h1>View Employees</h1>
+  <table>
+    <tr>
+      <th>Nama Karyawan</th>
+      <th>Umur Karyawan</th>
+      <th>Alamat Karyawan</th>
+      <th>Nomor Telp. Karyawan</th>
+    </tr>
+    <tr id="employee-data"></tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+<div class="add-container" style="display: none;">
+  <h1>Add Employee</h1>
+  <form>
+    <label for="add_nama_karyawan">Nama karyawan:</label>
+    <input type="text" id="nama" minlength="5" maxlength="20" required>
+    
+    <label for="add_umur_karyawan">Umur karyawan:</label>
+    <input type="number" id="umur" min="20" required>
+    
+    <label for="add_alamat">Alamat karyawan:</label>
+    <input type="text" id="alamat" name="alamat" minlength="10" maxlength="40" required>
+    
+    <label for="add_nomor_telp_karyawan">Nomor telp. karyawan:</label>
+    <input type="text" id="add_nomor_telp_karyawan" name="add_nomor_telp_karyawan" pattern="08[0-9]{8,9}" required>
+    
+    <input type="submit" value="Add" onclick="addEmployee()">
+  </form>
+</div>
+
+<div class="remove-container" style="display: none;">
+  <h1>Remove Employee</h1>
+  <form>
+    <label for="remove_nama_karyawan">Nama karyawan:</label>
+    <input type="text" id="remove_nama_karyawan" name="remove_nama_karyawan" required>
+    
+    <input type="submit" value="Remove" onclick="removeEmployee()">
+  </form>
+</div>

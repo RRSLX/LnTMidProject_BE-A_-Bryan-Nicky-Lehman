@@ -1,0 +1,86 @@
+#title1 {
+    color: blue;
+    font-size: 25px;
+    
+}
+
+#head1 {
+    padding-top: 20px;
+}
+
+.blog1 {
+    line-height: 9px;
+    margin-top: 25px;
+}
+
+h4 {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.blog2 {
+    line-height: 9px;
+    margin-top: 50px;
+}
+
+#title2 {
+    color: blue;
+    font-size: 25px;
+    
+}
+
+
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+nav {
+    background-color:rgb(232, 102, 102);
+    
+    display: flex;
+    font-display: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    display: flex;
+    box-shadow: 0 10px 17px -5px #747373;
+}
+
+
+.logo {
+    margin: 7px 65px;
+    font-size: 30px;
+    font-family: 'Oswald', sans-serif;
+    color: rgb(255, 255, 255);
+    float: left;
+}
+
+ul {
+    padding-right: 1055px;
+    margin-top: 10px;
+}
+
+ul li {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 7px;
+    text-decoration: none;
+    
+}    
+    
+li a {
+    text-decoration: none;
+    font-size: 17px;
+    color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    
+    
+
+}    
